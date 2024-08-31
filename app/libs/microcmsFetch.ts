@@ -38,8 +38,7 @@ export async function getListResponse<T>(serviceDomain: string, apiKey: string, 
             'X-MICROCMS-API-KEY': apiKey,
         },
     };
-
-
+    
     return fetch(url, options)
         .then((response) => {
             if (!response.ok) {

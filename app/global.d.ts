@@ -4,7 +4,6 @@ type Head = {
   title?: string
 }
 
-
 type Bindings = {
   SERVICE_DOMAIN: string
   API_KEY: string
