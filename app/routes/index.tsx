@@ -1,17 +1,6 @@
 import { createRoute } from 'honox/factory';
-
-type Plant = {
-  id: string;
-  title: string;
-  thumbnail: {
-    url: string;
-  };
-  description: string;
-};
-
-type PlantsResponse = {
-  contents: Plant[];
-};
+import type { PlantsResponse } from '../types';
+import { parseQuery } from '../libs/parseQuery'
 
 export default createRoute(async (c) => {
   const serviceDomain = c.env.SERVICE_DOMAIN;
@@ -71,7 +60,6 @@ export default createRoute(async (c) => {
                   </h3>
                   <p className="mt-1 text-sm text-gray-500">{plant.description}</p>
                 </div>
-                <p className="text-sm font-medium text-gray-900"></p>
               </div>
             </div>
           ))}
