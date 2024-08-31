@@ -1,32 +1,12 @@
 import { createRoute } from 'honox/factory';
 import type { PlantsResponse } from '../types';
-import { parseQuery } from '../libs/parseQuery'
+import { getListResponse } from '../libs/microcmsFetch'
+
 
 export default createRoute(async (c) => {
   const serviceDomain = c.env.SERVICE_DOMAIN;
   const apiKey = c.env.API_KEY;
-  const baseUrl = `https://${serviceDomain}.microcms.io`;
-  const url = baseUrl + `/api/v1/plant`;
-  const options = {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-MICROCMS-API-KEY': apiKey,
-    },
-  };
-
-  const plants: PlantsResponse | undefined = await fetch(url, options)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok ' + response.statusText);
-      }
-      return response.json() as Promise<PlantsResponse>;
-    })
-    .catch((error) => {
-      console.error('There has been a problem with your fetch operation:', error);
-      return undefined;
-    });
-
+  const plants = await getListResponse<PlantsResponse>(serviceDomain, apiKey, 'plant');
   if (!plants) {
     return c.render(
       <div className="min-h-screen flex items-center justify-center">
@@ -53,7 +33,7 @@ export default createRoute(async (c) => {
               <div className="mt-4 flex justify-between">
                 <div>
                   <h3 className="text-sm text-gray-700">
-                    <a href=''>
+                    <a href={`/plants/${plant.id}`}>
                       <span aria-hidden="true" className="absolute inset-0" />
                       {plant.title}
                     </a>
