@@ -3,7 +3,6 @@ import { getDetail, getListResponse } from '../../libs/microcmsFetch'
 import type { Plant, GrowthHistoryResponse } from '../../types'
 import type { MicroCMSQueries } from 'microcms-js-sdk'
 import HistoryImage from '../../islands/HistoryImage'
-import HistoryImage_ from '../../islands/HistoryImage_'
 
 export default createRoute(async (c) => {
     const { id } = c.req.param()

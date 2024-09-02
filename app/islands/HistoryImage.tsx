@@ -8,7 +8,6 @@ type Props = {
 export default function HistoryImage({ images }: Props) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isOpen, setIsOpen] = useState(false);
-
     const openModal = () => setIsOpen(true);
     const closeModal = () => setIsOpen(false);
     const nextImage = () => {
@@ -30,20 +29,24 @@ export default function HistoryImage({ images }: Props) {
                 />
 
                 {/* Previous Button */}
-                <button
-                    className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full"
-                    onClick={prevImage}
-                >
-                    &lt;
-                </button>
+                {images.length > 1 && (
+                    <button
+                        className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full"
+                        onClick={prevImage}
+                    >
+                        &lt;
+                    </button>
+                )}
 
                 {/* Next Button */}
-                <button
-                    className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full"
-                    onClick={nextImage}
-                >
-                    &gt;
-                </button>
+                {images.length > 1 && (
+                    <button
+                        className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full"
+                        onClick={nextImage}
+                    >
+                        &gt;
+                    </button>
+                )}
             </div>
 
             {/* Thumbnails */}
@@ -67,7 +70,7 @@ export default function HistoryImage({ images }: Props) {
                         <img
                             alt='alt'
                             src={images[currentIndex].url}
-                            className="max-w-[90vw] max-h-[90vh] rounded-md object-contain"
+                            className="sm:max-w-[90vw] sm:max-h-[90vh] max-w-[70vw] max-h-[70vh] rounded-md object-contain"
                         />
                     </div>
                 </div>
