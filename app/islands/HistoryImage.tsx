@@ -5,6 +5,13 @@ type Props = {
     images: MicroCMSImage[]
 }
 
+type NavButtonProps = {
+    direction: 'prev' | 'next';
+    onClick: () => void;
+    className?: string;
+}
+
+
 export default function HistoryImage({ images }: Props) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isOpen, setIsOpen] = useState(false);
@@ -18,6 +25,18 @@ export default function HistoryImage({ images }: Props) {
         setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
     };
 
+    function NavButton({ direction, onClick, className = '' }: NavButtonProps) {
+        return (
+            <button
+                className={`absolute top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full ${className}`}
+                onClick={onClick}
+            >
+                {direction === 'prev' ? '<' : '>'}
+            </button>
+        );
+    }
+
+
     return (
         <div className="relative w-full max-w-lg mx-auto">
             <div className="relative">
@@ -30,22 +49,12 @@ export default function HistoryImage({ images }: Props) {
 
                 {/* Previous Button */}
                 {images.length > 1 && (
-                    <button
-                        className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full"
-                        onClick={prevImage}
-                    >
-                        &lt;
-                    </button>
+                    <NavButton direction="prev" onClick={prevImage} className="left-2" />
                 )}
 
                 {/* Next Button */}
                 {images.length > 1 && (
-                    <button
-                        className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full"
-                        onClick={nextImage}
-                    >
-                        &gt;
-                    </button>
+                    <NavButton direction="next" onClick={nextImage} className="right-2" />
                 )}
             </div>
 
@@ -61,17 +70,28 @@ export default function HistoryImage({ images }: Props) {
                     />
                 ))}
             </div>
+
             {isOpen && (
                 <div
                     className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 cursor-pointer z-10"
                     onClick={closeModal}
                 >
-                    <div className="bg-white p-4 rounded-md z-20" onClick={(e) => e.stopPropagation()}>
+                    <div className="relative bg-white p-4 rounded-md z-20" onClick={(e) => e.stopPropagation()}>
                         <img
                             alt='alt'
                             src={images[currentIndex].url}
                             className="sm:max-w-[90vw] sm:max-h-[90vh] max-w-[70vw] max-h-[70vh] rounded-md object-contain"
                         />
+
+                        {/* Previous Button in Modal */}
+                        {images.length > 1 && (
+                            <NavButton direction="prev" onClick={prevImage} className="left-2" />
+                        )}
+
+                        {/* Next Button in Modal */}
+                        {images.length > 1 && (
+                            <NavButton direction="next" onClick={nextImage} className="right-2" />
+                        )}
                     </div>
                 </div>
             )}
