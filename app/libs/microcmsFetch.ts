@@ -38,7 +38,7 @@ export async function getListResponse<T>(serviceDomain: string, apiKey: string, 
             'X-MICROCMS-API-KEY': apiKey,
         },
     };
-    
+
     return fetch(url, options)
         .then((response) => {
             if (!response.ok) {
@@ -57,7 +57,7 @@ export async function getDetail<T>(serviceDomain: string, apiKey: string, endpoi
     let url = `${baseUrl}${endpoint}/${contentId}`;
     if (queries) {
         const queryString = parseQuery(queries)
-        console.log(queryString)
+        url += '?' + queryString
     }
     const options = {
         method: 'GET',

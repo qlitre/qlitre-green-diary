@@ -3,6 +3,7 @@ import { getDetail, getListResponse } from '../../libs/microcmsFetch'
 import type { Plant, GrowthHistoryResponse } from '../../types'
 import type { MicroCMSQueries } from 'microcms-js-sdk'
 import HistoryImage from '../../islands/HistoryImage'
+import HistoryImage_ from '../../islands/HistoryImage_'
 
 export default createRoute(async (c) => {
     const { id } = c.req.param()
@@ -11,6 +12,7 @@ export default createRoute(async (c) => {
     const apiKey = c.env.API_KEY
     const plant = await getDetail<Plant>(serviceDomain, apiKey, 'plant', id)
     const history = await getListResponse<GrowthHistoryResponse>(serviceDomain, apiKey, 'growth_history', queries)
+
     return c.render(
         <div className="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
             <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Growth History</h1>
@@ -26,7 +28,7 @@ export default createRoute(async (c) => {
                                     <p>
                                         {record.shooting_date.substring(0, 10)}
                                     </p>
-                                    <p className="mt-4 flex space-x-2 text-sm text-gray-700">
+                                    <p className="mt-4 flex space-x-2 text-gray-700">
                                         {record.comment}
                                     </p>
                                 </div>
