@@ -1,16 +1,17 @@
 import { createRoute } from 'honox/factory'
-import { getDetail, getListResponse } from '../../libs/microcmsFetch'
+import { MicroCMSClient } from '../../libs/microcmsClient'
 import type { Plant, GrowthHistoryResponse } from '../../types'
 import type { MicroCMSQueries } from 'microcms-js-sdk'
-import HistoryImage from '../../islands/HistoryImage'
+import { HistoryImage } from '../../islands/HistoryImage'
 
 export default createRoute(async (c) => {
     const { id } = c.req.param()
     const queries: MicroCMSQueries = { filters: `target[equals]${id}` }
     const serviceDomain = c.env.SERVICE_DOMAIN
     const apiKey = c.env.API_KEY
-    const plant = await getDetail<Plant>(serviceDomain, apiKey, 'plant', id)
-    const history = await getListResponse<GrowthHistoryResponse>(serviceDomain, apiKey, 'growth_history', queries)
+    const client = new MicroCMSClient(serviceDomain, apiKey)
+    const plant = await client.getDetail<Plant>('plant', id)
+    const history = await client.getListResponse<GrowthHistoryResponse>('growth_history', queries)
 
     return c.render(
         <div className="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-6 lg:max-w-7xl lg:px-8">

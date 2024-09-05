@@ -12,7 +12,7 @@ type NavButtonProps = {
 }
 
 
-export default function HistoryImage({ images }: Props) {
+export const HistoryImage = ({ images }: Props) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isOpen, setIsOpen] = useState(false);
     const openModal = () => setIsOpen(true);
