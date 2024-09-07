@@ -2,6 +2,7 @@ import { Style } from 'hono/css'
 import { jsxRenderer } from 'hono/jsx-renderer'
 import { Script, Link } from 'honox/server'
 import { Header } from '../components/Header'
+
 export default jsxRenderer(({ children, title }) => {
   return (
     <html lang="en">
