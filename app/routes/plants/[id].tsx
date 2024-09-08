@@ -53,6 +53,6 @@ export default createRoute(async (c) => {
             >
                 HOME
             </a>
-        </div>, { title: plant?.title, description: plant?.description, contentUrl: `https://green-diary.pages.dev/plants/${id}` }
+        </div>, { title: plant?.title, description: plant?.description, contentUrl: `https://green-diary.pages.dev/plants/${id}`, thumbnailUrl: plant?.thumbnail.url }
     )
 })
