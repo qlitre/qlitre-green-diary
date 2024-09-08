@@ -65,7 +65,7 @@ export const HistoryImage = ({ images }: Props) => {
                         key={index}
                         alt='Thumbnail'
                         src={image.url}
-                        className={`w-16 h-16 object-cover cursor-pointer rounded-md ${currentIndex === index ? 'ring-2 ring-indigo-500' : ''}`}
+                        className={`w-12 h-12 object-cover cursor-pointer rounded-md ${currentIndex === index ? 'ring-2 ring-indigo-500' : ''}`}
                         onClick={() => setCurrentIndex(index)}
                     />
                 ))}

@@ -27,6 +27,5 @@ export default createRoute(async (c) => {
           ))}
         </div>
       </div>
-
   );
 });
