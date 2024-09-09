@@ -18,7 +18,7 @@ export default defineConfig(({ mode }) => {
   }
   return {
     ssr: {
-      external: ['microcms-js-sdk']
+      external: ['microcms-js-sdk','dayjs']
     },
     plugins: [honox({
       devServer: {

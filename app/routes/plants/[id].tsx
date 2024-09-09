@@ -3,6 +3,7 @@ import { MicroCMSClient } from '../../libs/microcmsClient'
 import type { Plant, GrowthHistoryResponse } from '../../types'
 import type { MicroCMSQueries } from 'microcms-js-sdk'
 import { HistoryImage } from '../../islands/HistoryImage'
+import { jstDatetime } from '../../libs/jstDatetime'
 
 export default createRoute(async (c) => {
     const { id } = c.req.param()
@@ -26,7 +27,7 @@ export default createRoute(async (c) => {
                                 </div>
                                 <div className="ml-4 flex flex-1 flex-col justify-between sm:ml-6">
                                     <p>
-                                        {record.shooting_date.substring(0, 10)}
+                                        {jstDatetime(record.shooting_date).substring(0, 10)}
                                     </p>
                                     <p className="mt-4 flex space-x-2 text-gray-700">
                                         {record.comment}
