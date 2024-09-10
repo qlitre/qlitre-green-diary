@@ -2,13 +2,14 @@ import { Style } from 'hono/css'
 import { jsxRenderer } from 'hono/jsx-renderer'
 import { Script, Link } from 'honox/server'
 import { Header } from '../components/Header'
+import { config } from '../settings/siteSettings'
 
 export default jsxRenderer(({ children, title, description, contentUrl, thumbnailUrl }) => {
-  const _contentUrl = contentUrl ? contentUrl : 'https://green-diary.pages.dev/'
-  const _title = title ? title : 'QLITRE GREEN DIARY'
-  const _description = description ? description : 'QLITREの植物成長記録サイト'
+  const _contentUrl = contentUrl ? contentUrl : config.siteURL
+  const _title = title ? title : config.siteTitle
+  const _description = description ? description : config.siteDescription
   return (
-    <html lang="en">
+    <html lang="ja">
       <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,7 +19,10 @@ export default jsxRenderer(({ children, title, description, contentUrl, thumbnai
         <meta property="og:title" content={_title} />
         <meta property="og:description" content={_description} />
         <meta property="og:site_name" content='QLITRE GREEN DIARY' />
-        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="og:image" content={thumbnailUrl} />
+        <meta property="og:image:width" content="800" />
+        <meta property="og:image:height" content="600" />
+        <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@kuri_tter" />
         <meta name="twitter:title" content={_title} />
         <meta name="twitter:description" content={_description} />

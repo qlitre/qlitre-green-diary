@@ -4,6 +4,8 @@ import type { Plant, GrowthHistoryResponse } from '../../types'
 import type { MicroCMSQueries } from 'microcms-js-sdk'
 import { HistoryImage } from '../../islands/HistoryImage'
 import { jstDatetime } from '../../libs/jstDatetime'
+//import { ShareX } from '../../components/ShareX'
+import { config } from '../../settings/siteSettings'
 
 export default createRoute(async (c) => {
     const { id } = c.req.param()
@@ -13,6 +15,9 @@ export default createRoute(async (c) => {
     const client = new MicroCMSClient(serviceDomain, apiKey)
     const plant = await client.getDetail<Plant>('plant', id)
     const history = await client.getListResponse<GrowthHistoryResponse>('growth_history', queries)
+    const contentUrl = `${config.siteURL}/${id}`
+    const thumbnailUrl = history ? history.contents[0].images[0].url : ''
+    const description = history ? history.contents[0].comment : ''
 
     return c.render(
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
@@ -54,6 +59,6 @@ export default createRoute(async (c) => {
             >
                 HOME
             </a>
-        </div>, { title: plant?.title, description: plant?.description, contentUrl: `https://green-diary.pages.dev/plants/${id}`, thumbnailUrl: plant?.thumbnail.url }
+        </div>, { title: plant?.title, description: description, contentUrl: contentUrl, thumbnailUrl: thumbnailUrl }
     )
 })
