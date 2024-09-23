@@ -37,7 +37,7 @@ export default jsxRenderer(({ children, title, description, contentUrl, thumbnai
         <Style />
       </head>
       <body>
-        <Header />
+        <Header />       
         {children}
       </body>
     </html>

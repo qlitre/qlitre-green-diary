@@ -15,10 +15,8 @@ export const ShareX = ({ url, title }: Props) => {
                 target="_blank"
                 rel="noopener noreferrer"
             >
-                {/**
-                 *<img className="w-5 h-5" src="http:localhost:5173/images/xlogo.svg" alt="xLogo" />
-                 */}
-                 <span>XでShare</span>
+                <img className="w-5 h-5" src="/static/xlogo.svg" alt="xLogo" />
+                <span>SHARE</span>
             </a>
         </>
     );

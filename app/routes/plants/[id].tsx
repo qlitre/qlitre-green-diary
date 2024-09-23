@@ -4,7 +4,8 @@ import type { Plant, GrowthHistoryResponse } from '../../types'
 import type { MicroCMSQueries } from 'microcms-js-sdk'
 import { HistoryImage } from '../../islands/HistoryImage'
 import { jstDatetime } from '../../libs/jstDatetime'
-//import { ShareX } from '../../components/ShareX'
+import { ShareX } from '../../components/ShareX'
+import { LinkToHome } from '../../components/LinkToHome'
 import { config } from '../../settings/siteSettings'
 
 export default createRoute(async (c) => {
@@ -15,7 +16,7 @@ export default createRoute(async (c) => {
     const client = new MicroCMSClient(serviceDomain, apiKey)
     const plant = await client.getDetail<Plant>('plant', id)
     const history = await client.getListResponse<GrowthHistoryResponse>('growth_history', queries)
-    const contentUrl = `${config.siteURL}/${id}`
+    const contentUrl = `${config.siteURL}/plants/${id}`
     const thumbnailUrl = history ? history.contents[0].images[0].url : ''
     const description = history ? history.contents[0].comment : ''
 
@@ -53,12 +54,12 @@ export default createRoute(async (c) => {
                     </dl>
                 </section>
             </div>
-            <a
-                href="/"
-                className="mt-4 inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out text-center"
-            >
-                HOME
-            </a>
+            <div className="mt-4">
+                <ShareX url={contentUrl} title={plant?.title || ''}></ShareX>
+            </div>
+            <div>
+                <LinkToHome />
+            </div>
         </div>, { title: plant?.title, description: description, contentUrl: contentUrl, thumbnailUrl: thumbnailUrl }
     )
 })
